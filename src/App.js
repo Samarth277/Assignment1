@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import LoginPage from './LoginPage';
+import ProfilePage from './components/ProfilePage';
 
-function App() {
+const App = () => {
+  const [loginToken, setLoginToken] = useState('');
+
+  const handleLogin = (token) => {
+    setLoginToken(token);
+  };
+
+  const handleLogout = () => {
+    setLoginToken('');
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {!loginToken ? (
+        <LoginPage handleLogin={handleLogin} />
+      ) : (
+        <ProfilePage loginToken={loginToken} handleLogout={handleLogout} />
+      )}
     </div>
   );
-}
+};
 
 export default App;
